@@ -1,7 +1,7 @@
 import os
 import csv
 
-csvpath = os.path.join("budget_data.csv")
+csvpath = os.path.join("Resources", "budget_data.csv")
 
 #Initilize variables to store values
 totalMonths = 0
@@ -47,16 +47,29 @@ max_decrease_date = dates[averageChange.index(maxDecrease)]
 # Calculate the average change in profit/loss   
 averageChange=(sum(averageChange)/len(averageChange))   
 
-# Print the analysis results
-print("Financial Analysis")
-print("---------------------------")
-print(f"Total Months: {totalMonths}")
-print(f"Total: ${totalProfit}")
-print(f"Average Change: ${averageChange:.2f}")
-print(f"Greatest Increase in Profits: {max_increase_date} (${maxIncrease})")
-print(f"Greatest Decrease in Profits: {max_decrease_date} (${maxDecrease})")
+# # Print the analysis results
+# print("Financial Analysis")
+# print("---------------------------")
+# print(f"Total Months: {totalMonths}")
+# print(f"Total: ${totalProfit}")
+# print(f"Average Change: ${averageChange:.2f}")
+# print(f"Greatest Increase in Profits: {max_increase_date} (${maxIncrease})")
+# print(f"Greatest Decrease in Profits: {max_decrease_date} (${maxDecrease})")
         
-            
+output = f"""        
+Financial Analysis
+----------------------------
+Total Months: {totalMonths}
+Total: ${totalProfit}
+Average Change: ${averageChange:.2f}
+Greatest Increase in Profits: {max_increase_date} (${maxIncrease})
+Greatest Decrease in Profits: {max_decrease_date} (${maxDecrease})
+""" 
+
+print(output)
+
+with open("analysis/pybank_analysis.txt", "w") as out_file:
+    out_file.write(output)
         
         
         

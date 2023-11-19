@@ -1,7 +1,7 @@
 import os
 import csv
 
-csvpath = os.path.join("election_data.csv")
+csvpath = os.path.join("Resources", "election_data.csv")
 
 # Initialize variables
 totalVotes = 0
@@ -37,30 +37,51 @@ for i, row in enumerate(csvreader):
     #Add candidates vote count    
     candidateVotes[candidate_name] += 1
 
-# Print the analysis results
-print("Election Results")
-print("---------------------------")
-print(f"Total Votes: {totalVotes}")
-print("---------------------------")   
- 
-# Initialize variables to find the winner   
-winner = ""
-maxVotes = 0
-for candidate in candidates: 
-    votes = candidateVotes[candidate]
-    percentage = (votes / totalVotes) * 100
-    print(f"{candidate}: {percentage:.3f}% ({votes})")
+with open("analysis/PyPoll_analysis.txt", "w") as out_file:
+    # Print the analysis results
+    # print("Election Results")
+    # print("---------------------------")
+    # print(f"Total Votes: {totalVotes}")
+    # print("---------------------------")
+
+    results = (
+        f"\n\nElection Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {totalVotes}\n"
+        f"-------------------------\n")
+
+    print(results)
+
+    out_file.write(results)  
     
-    # Check for the winner
-    if votes > maxVotes:
-        maxVotes = votes
-        winner = candidate
+    # Initialize variables to find the winner   
+    winner = ""
+    maxVotes = 0
+    for candidate in candidates: 
+        votes = candidateVotes[candidate]
+        percentage = (votes / totalVotes) * 100
+        print(f"{candidate}: {percentage:.3f}% ({votes})\n")
+        out_file.write(
+            f"{candidate}: {percentage:.3f}% ({votes})\n"
+        )
+        
+        # Check for the winner
+        if votes > maxVotes:
+            maxVotes = votes
+            winner = candidate
 
-# Print the analysis results
-print("---------------------------")
+    # Print the analysis results
+    summary = (
+        f"-------------------------\n"
+        f"Winner: {winner}\n"
+        f"-------------------------\n")
+    print(summary)
 
-print(f"Winner: {winner}")
+    out_file.write(summary)
+    # print("---------------------------")
 
-print("---------------------------")
+    # print(f"Winner: {winner}")
+
+    # print("---------------------------")
 
     
